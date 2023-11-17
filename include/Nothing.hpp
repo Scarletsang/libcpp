@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 20:39:59 by htsang            #+#    #+#             */
-/*   Updated: 2023/11/17 20:44:12 by htsang           ###   ########.fr       */
+/*   Updated: 2023/11/17 23:13:13 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ namespace libcpp
   template <typename T>
   bool  Nothing::operator==(const T& other) const
   {
+    (void) other;
     return false;
   }
 } // namespace libcpp

@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 20:45:13 by htsang            #+#    #+#             */
-/*   Updated: 2023/11/17 23:04:43 by htsang           ###   ########.fr       */
+/*   Updated: 2023/11/17 23:11:13 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,28 @@ namespace libcpp
 
       template <typename T2, typename Env>
       Maybe<T2> chain(Maybe<T2> (*f)(T, Env&), Env& data) const;
+
+      //////////////////////////////////////////////////////
+      ////////////   Maybe monads for methods   ////////////
+      //////////////////////////////////////////////////////
+
+      template <typename T2, typename Class>
+      Maybe<T2> chain(Maybe<T2> (Class::*f)(), Class& obj) const;
+
+      template <typename T2, typename Class>
+      Maybe<T2> chain(Maybe<T2> (Class::*f)(T), Class& obj) const;
+
+      template <typename T2, typename Class, typename Env>
+      Maybe<T2> chain(Maybe<T2> (Class::*f)(Env), Class& obj, Env data) const;
+
+      template <typename T2, typename Class, typename Env>
+      Maybe<T2> chain(Maybe<T2> (Class::*f)(Env&), Class& obj, Env& data) const;
+
+      template <typename T2, typename Class, typename Env>
+      Maybe<T2> chain(Maybe<T2> (Class::*f)(T, Env), Class& obj, Env data) const;
+
+      template <typename T2, typename Class, typename Env>
+      Maybe<T2> chain(Maybe<T2> (Class::*f)(T, Env&), Class& obj, Env& data) const;
 
     private:
       T     value_;
@@ -122,7 +144,7 @@ namespace libcpp
   Maybe<T2> Maybe<T>::chain(Maybe<T2> (*f)(T)) const
   {
     if (this->is_ok())
-      return f(this->value());
+      return f(this->value_);
     return Nothing();
   }
 
@@ -149,7 +171,74 @@ namespace libcpp
   Maybe<T2> Maybe<T>::chain(Maybe<T2> (*f)(T, Env), Env data) const
   {
     if (this->is_ok())
-      return f(this->value(), data);
+      return f(this->value_, data);
+    return Nothing();
+  }
+
+  template <typename T>
+  template <typename T2, typename Env>
+  Maybe<T2> Maybe<T>::chain(Maybe<T2> (*f)(T, Env&), Env& data) const
+  {
+    if (this->is_ok())
+      return f(tthis->value_, data);
+    return Nothing();
+  }
+
+  //////////////////////////////////////////////////////
+  ////////////   Maybe monads for methods   ////////////
+  //////////////////////////////////////////////////////
+
+  template <typename T>
+  template <typename T2, typename Class>
+  Maybe<T2> Maybe<T>::chain(Maybe<T2> (Class::*f)(), Class& obj) const
+  {
+    if (this->is_ok())
+      return (obj.*f)();
+    return Nothing();
+  }
+
+  template <typename T>
+  template <typename T2, typename Class>
+  Maybe<T2> Maybe<T>::chain(Maybe<T2> (Class::*f)(T), Class& obj) const
+  {
+    if (this->is_ok())
+      return (obj.*f)(this->value_);
+    return Nothing();
+  }
+
+  template <typename T>
+  template <typename T2, typename Class, typename Env>
+  Maybe<T2> Maybe<T>::chain(Maybe<T2> (Class::*f)(Env), Class& obj, Env data) const
+  {
+    if (this->is_ok())
+      return (obj.*f)(data);
+    return Nothing();
+  }
+
+  template <typename T>
+  template <typename T2, typename Class, typename Env>
+  Maybe<T2> Maybe<T>::chain(Maybe<T2> (Class::*f)(Env&), Class& obj, Env& data) const
+  {
+    if (this->is_ok())
+      return (obj.*f)(data);
+    return Nothing();
+  }
+
+  template <typename T>
+  template <typename T2, typename Class, typename Env>
+  Maybe<T2> Maybe<T>::chain(Maybe<T2> (Class::*f)(T, Env), Class& obj, Env data) const
+  {
+    if (this->is_ok())
+      return (obj.*f)(this->value_, data);
+    return Nothing();
+  }
+
+  template <typename T>
+  template <typename T2, typename Class, typename Env>
+  Maybe<T2> Maybe<T>::chain(Maybe<T2> (Class::*f)(T, Env&), Class& obj, Env& data) const
+  {
+    if (this->is_ok())
+      return (obj.*f)(this->value_, data);
     return Nothing();
   }
 

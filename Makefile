@@ -11,7 +11,7 @@ ifdef FSANITIZE
 	CXXFLAGS+= -g3 -fsanitize=address -DDEBUG=1
 	LDFLAGS+= -g3 -fsanitize=address
 endif
-INCLUDE_DIR:= .
+INCLUDE_DIR:= include
 
 ###################################
 ######     Source files     #######
@@ -21,7 +21,7 @@ INCLUDE_DIR:= .
 # contatenate them in the SRC variable like this:
 
 MAIN_SRC:= \
-	main.cpp
+	Nothing.cpp
 SRC:= $(MAIN_SRC)
 
 ####################################
@@ -45,7 +45,7 @@ SRC:= $(MAIN_SRC)
 
 # This in effect makes all the object files to be compiled in the OBJ_DIR directory
 
-SRC_DIR:=.
+SRC_DIR:=src
 OBJ_DIR:=obj
 OBJ:=$(addprefix $(OBJ_DIR)/,$(subst /,@,$(SRC:.cpp=.o)))
 DEPENDS:=$(OBJ:.o=.d)

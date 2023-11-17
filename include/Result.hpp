@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 14:35:42 by htsang            #+#    #+#             */
-/*   Updated: 2023/11/17 23:00:22 by htsang           ###   ########.fr       */
+/*   Updated: 2023/11/17 23:11:27 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ template <typename T, typename Err>
 template <typename T2>
 Result<T2, Err> Result<T,Err>::chain(Result<T2, Err> (*f)()) const
 {
-  if (is_ok_)
+  if (this->is_ok())
     return f();
   else
     return Result<T2, Err>::Error(error_);
@@ -164,8 +164,8 @@ template <typename T, typename Err>
 template <typename T2>
 Result<T2, Err> Result<T,Err>::chain(Result<T2, Err> (*f)(T)) const
 {
-  if (is_ok_)
-    return f(value_);
+  if (this->is_ok())
+    return f(this->value_);
   else
     return Result<T2, Err>::Error(error_);
 }
@@ -180,7 +180,7 @@ template <typename T, typename Err>
 template <typename T2, typename Env>
 Result<T2, Err> Result<T,Err>::chain(Result<T2, Err> (*f)(Env), Env data) const
 {
-  if (is_ok_)
+  if (this->is_ok())
     return f(data);
   else
     return Result<T2, Err>::Error(error_);
@@ -196,7 +196,7 @@ template <typename T, typename Err>
 template <typename T2, typename Env>
 Result<T2, Err> Result<T,Err>::chain(Result<T2, Err> (*f)(Env&), Env& data) const
 {
-  if (is_ok_)
+  if (this->is_ok())
     return f(data);
   else
     return Result<T2, Err>::Error(error_);
@@ -212,8 +212,8 @@ template <typename T, typename Err>
 template <typename T2, typename Env>
 Result<T2, Err> Result<T,Err>::chain(Result<T2, Err> (*f)(T, Env), Env data) const
 {
-  if (is_ok_)
-    return f(value_, data);
+  if (this->is_ok())
+    return f(this->value_, data);
   else
     return Result<T2, Err>::Error(error_);
 }
@@ -228,8 +228,8 @@ template <typename T, typename Err>
 template <typename T2, typename Env>
 Result<T2, Err> Result<T,Err>::chain(Result<T2, Err> (*f)(T, Env&), Env& data) const
 {
-  if (is_ok_)
-    return f(value_, data);
+  if (this->is_ok())
+    return f(this->value_, data);
   else
     return Result<T2, Err>::Error(error_);
 }
@@ -248,7 +248,7 @@ template <typename T, typename Err>
 template <typename T2, typename Class>
 Result<T2, Err> Result<T,Err>::chain(T2 (Class::*f)(), Class& obj) const
 {
-  if (is_ok_)
+  if (this->is_ok())
     return (obj.*f)();
   else
     return Result<T2, Err>::Error(error_);
@@ -264,8 +264,8 @@ template <typename T, typename Err>
 template <typename T2, typename Class>
 Result<T2, Err> Result<T,Err>::chain(T2 (Class::*f)(T), Class& obj) const
 {
-  if (is_ok_)
-    return (obj.*f)(value_);
+  if (this->is_ok())
+    return (obj.*f)(this->value_);
   else
     return Result<T2, Err>::Error(error_);
 }
@@ -281,7 +281,7 @@ template <typename T, typename Err>
 template <typename T2, typename Class, typename Env>
 Result<T2, Err> Result<T,Err>::chain(T2 (Class::*f)(Env), Class& obj, Env data) const
 {
-  if (is_ok_)
+  if (this->is_ok())
     return (obj.*f)(data);
   else
     return Result<T2, Err>::Error(error_);
@@ -298,7 +298,7 @@ template <typename T, typename Err>
 template <typename T2, typename Class, typename Env>
 Result<T2, Err> Result<T,Err>::chain(T2 (Class::*f)(Env&), Class& obj, Env& data) const
 {
-  if (is_ok_)
+  if (this->is_ok())
     return (obj.*f)(data);
   else
     return Result<T2, Err>::Error(error_);
@@ -315,8 +315,8 @@ template <typename T, typename Err>
 template <typename T2, typename Class, typename Env>
 Result<T2, Err> Result<T,Err>::chain(T2 (Class::*f)(T, Env), Class& obj, Env data) const
 {
-  if (is_ok_)
-    return (obj.*f)(value_, data);
+  if (this->is_ok())
+    return (obj.*f)(this->value_, data);
   else
     return Result<T2, Err>::Error(error_);
 }
@@ -332,8 +332,8 @@ template <typename T, typename Err>
 template <typename T2, typename Class, typename Env>
 Result<T2, Err> Result<T,Err>::chain(T2 (Class::*f)(T, Env&), Class& obj, Env& data) const
 {
-  if (is_ok_)
-    return (obj.*f)(value_, data);
+  if (this->is_ok())
+    return (obj.*f)(this->value_, data);
   else
     return Result<T2, Err>::Error(error_);
 }
