@@ -2,11 +2,11 @@
 ######     Variables     #######
 ################################
 
-NAME:=libcpp.so
+NAME:=libcpp.a
 
 CC:=g++
 CXXFLAGS= -std=c++98 -pedantic -Wall -Wextra -Werror -MMD -MP -O2
-LDFLAGS= -std=c++98 -pedantic -shared -fPIC
+LDFLAGS= -std=c++98 -pedantic
 ifdef FSANITIZE
 	CXXFLAGS+= -g3 -fsanitize=address -DDEBUG=1
 	LDFLAGS+= -g3 -fsanitize=address
@@ -21,7 +21,8 @@ INCLUDE_DIR:= include
 # contatenate them in the SRC variable like this:
 
 MAIN_SRC:= \
-	Nothing.cpp
+	Nothing.cpp \
+	Parser.cpp
 SRC:= $(MAIN_SRC)
 
 ####################################
@@ -58,7 +59,7 @@ all:
 	@$(MAKE) $(NAME) -j
 
 $(NAME): $(OBJ)
-	@$(CC) $(OBJ) -o $(NAME) $(LDFLAGS) && echo "Compilation of $(NAME) successful"
+	@ar rcs $(NAME) $(OBJ) && echo "Library $(NAME) compiled"
 
 ##########################################
 ######     Library compilation     #######

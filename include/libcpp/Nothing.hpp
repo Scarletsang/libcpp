@@ -6,12 +6,12 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 20:39:59 by htsang            #+#    #+#             */
-/*   Updated: 2023/11/17 23:13:13 by htsang           ###   ########.fr       */
+/*   Updated: 2023/11/18 19:35:03 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef NOTHING_HPP
-# define NOTHING_HPP
+#ifndef LIBCPP_NOTHING_HPP
+# define LIBCPP_NOTHING_HPP
 
 namespace libcpp
 {

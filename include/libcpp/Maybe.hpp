@@ -6,12 +6,12 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 20:45:13 by htsang            #+#    #+#             */
-/*   Updated: 2023/11/17 23:11:13 by htsang           ###   ########.fr       */
+/*   Updated: 2023/11/18 19:34:54 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAYBE_HPP
-# define MAYBE_HPP
+#ifndef LIBCPP_MAYBE_HPP
+# define LIBCPP_MAYBE_HPP
 
 # include "Nothing.hpp"
 
