@@ -6,7 +6,7 @@
 /*   By: htsang <htsang@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 20:45:13 by htsang            #+#    #+#             */
-/*   Updated: 2023/11/18 19:34:54 by htsang           ###   ########.fr       */
+/*   Updated: 2024/01/13 18:14:40 by htsang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ namespace libcpp
     : value_(), is_ok_(false) {}
   
   template <typename T>
-  Maybe<T>::Maybe(const Nothing value)
+  Maybe<T>::Maybe(const Nothing)
     : value_(), is_ok_(false) {}
   
   template <typename T>
@@ -180,7 +180,7 @@ namespace libcpp
   Maybe<T2> Maybe<T>::chain(Maybe<T2> (*f)(T, Env&), Env& data) const
   {
     if (this->is_ok())
-      return f(tthis->value_, data);
+      return f(this->value_, data);
     return Nothing();
   }
 
